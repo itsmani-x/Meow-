@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Elina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+/* BACKGROUND SCENES */
+.scene {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.scene.active {
+  display: flex;
+}
+
+/* Different cinematic backgrounds */
+.bg1 { background: linear-gradient(120deg, #1a2a6c, #b21f1f, #fdbb2d); }
+.bg2 { background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); }
+.bg3 { background: linear-gradient(120deg, #41295a, #2F0743); }
+.bg4 { background: linear-gradient(120deg, #000428, #004e92); }
+
+.content {
+  max-width: 700px;
+  animation: fadeUp 1.5s ease;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+button {
+  margin: 20px 10px 0;
+  padding: 14px 40px;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.yes {
+  background: #ff5c8a;
+  color: white;
+}
+
+.no {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.08);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SCENE 1 -->
+<div class="scene bg1 active" id="scene1">
+  <div class="content">
+    <h1>Elina</h1>
+    <p>
+      I know you’re angry.  
+      And I know words don’t fix everything.
+    </p>
+    <button class="yes" onclick="nextScene(2)">Continue</button>
+  </div>
+</div>
+
+<!-- SCENE 2 -->
+<div class="scene bg2" id="scene2">
+  <div class="content">
+    <p>
+      I’m not here to argue.  
+      I’m just here to say sorry — sincerely.
+    </p>
+    <button class="yes" onclick="nextScene(3)">Next</button>
+  </div>
+</div>
+
+<!-- SCENE 3 -->
+<div class="scene bg3" id="scene3">
+  <div class="content">
+    <p>
+      I care about you more than my ego,  
+      more than being right.
+    </p>
+    <button class="yes" onclick="nextScene(4)">One last thing</button>
+  </div>
+</div>
+
+<!-- SCENE 4 (QUESTION) -->
+<div class="scene bg4" id="scene4">
+  <div class="content">
+    <h1>Will you forgive me?</h1>
+    <button class="yes" onclick="forgiven()">Yes</button>
+    <button class="no" onclick="notYet()">No</button>
+    <p id="plea" style="margin-top:20px; display:none;">
+      pls say yes 🥺
+    </p>
+  </div>
+</div>
+
+<!-- FINAL SCENE -->
+<div class="scene bg2" id="scene5">
+  <div class="content">
+    <h1>Thank you</h1>
+    <p>
+      Your calm means everything to me.  
+      I promise to do better.
+    </p>
+    <p style="margin-top:15px;">💗</p>
+  </div>
+</div>
+
+<script>
+let noCount = 0;
+
+function nextScene(n) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.getElementById('scene' + n).classList.add('active');
+}
+
+function notYet() {
+  noCount++;
+  const plea = document.getElementById("plea");
+  plea.style.display = "block";
+
+  const texts = [
+    "pls say yes 🥺",
+    "just one chance?",
+    "I really mean it",
+    "I’ll wait…",
+    "okay but you still matter to me"
+  ];
+
+  plea.innerText = texts[Math.min(noCount, texts.length - 1)];
+}
+
+function forgiven() {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.getElementById('scene5').classList.add('active');
+}
+</script>
+
+</body>
+</html>
